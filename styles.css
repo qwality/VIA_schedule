@@ -1,0 +1,134 @@
+:root{
+    --header-bg-color: #969696;
+    --gap-color: black;
+    --header-color: white;
+    --color: black;
+    --gap: 0.8px;
+
+    --columns: 14;
+    --rows: 5;
+}
+
+.cviko{
+    border: 1px solid #0f0fff;
+    background-color: #ddddff;
+}
+.prednaska{
+    border: 1px solid #ff0f0f;
+    background-color: #ffdddd;
+}
+.ind{
+    border: 1px solid #0fff0f;
+    background-color: #ddffdd;
+}
+.prednaska2{
+    border: 1px solid #ff0f0f;
+    background-color: aqua;
+}
+
+.schedule{
+    background-color: var(--gap-color);
+    padding: calc(var(--gap) * 2);
+    width: fit-content;
+    height: fit-content;
+    color: var(--color);
+    display: grid;
+    grid-template-columns: 100px repeat(var(--columns), min-content);/*minmax(50px, min-content)); /*min-content*/
+    grid-template-rows: auto repeat(var(--rows), minmax(30px, min-content));
+    grid-column-gap: var(--gap);
+    grid-row-gap: calc(var(--gap) * 2);
+    grid-area: c;
+    font: 0.8em Arial, Helvetica, sans-serif;
+}
+
+.time_item{
+    color: var(--header-color);
+    text-align: center;
+    background-color: #969696;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    font-weight: bold;
+    line-height: 1.5em;
+}
+
+.schedule:before{
+    background-color: #969696;
+    content: '';
+}
+
+.day_item{
+    color: var(--header-color);
+    text-align: center;
+    background-color: #969696;
+}
+
+.day_item > div{
+    position: relative;
+    top: calc(50% - 0.5em);
+    font-weight: bold;
+}
+.day_item:first-letter{
+    text-transform: uppercase;
+}
+
+.filler{
+    background-color: white;
+    min-width: 50px;
+}
+
+.lesson{
+    display: grid;
+    grid-column-gap: 10px;
+    grid-row-gap: 2px;
+    padding: 2px;
+    min-width: max-content;
+    /*width: min-content;*/
+}
+
+.l_icon{
+    color: dimgray;
+    grid-area: 1 / 2;
+}
+.l_icon::before{
+    cursor: pointer;
+    float: right;
+}
+
+.lesson > .l_class{
+    grid-area: 1 / 1;
+}
+.lesson > .l_teacher{
+    grid-area: 2 / 1 / span 1 / span 2;
+}
+.lesson > .l_room{
+    grid-area: 3 / 1;
+}
+.lesson > .l_index{
+    grid-area: 3 / 2;
+    text-align: right;
+}
+
+.C{
+    background-color: blue;
+    height: 100px;
+    padding: 5px;
+}
+.A{
+    box-sizing: border-box;
+    display: inline-block;
+    background-color: gray;
+    width: 10px;
+    height: 100px;
+    margin: 0px !important;
+    padding: 0;
+}
+.B{
+    margin: 0px !important;
+    padding: 0;
+    box-sizing: border-box;
+    display: inline-block;
+    background-color: black;
+    width: 1%;
+    /*width: 0.8px;*/
+    height: 100px;
+}

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="cs-CZ">
+<head>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
+    <meta charset="UTF-8">
+    <title>VIA schedule</title>
+</head>
+<body>
+    <div class="schedule">
+        <div class="lesson cviko"       data-p="2 4 6"  >
+            <div class="l_class">VIA</div>
+            <div class="l_teacher">M. Radecký</div>
+            <div class="l_room">PORRV203</div><div class="l_index">C/01</div>
+        </div>
+        <div class="lesson prednaska"   data-p="2 8 10"  >
+            <div class="l_class">VIA</div>
+            <div class="l_teacher">M. Radecký</div>
+            <div class="l_room">PORREC2</div><div class="l_index">P/01</div>
+        </div>
+        <div class="lesson prednaska"   data-p="2 10 13" >
+            <div class="l_class">APPS</div>
+            <div class="l_teacher">P. Olivka</div>
+            <div class="l_room">POREC1</div><div class="l_index">P/02</div>
+        </div>
+        <div class="lesson cviko"       data-p="3 5 8"  >
+            <div class="l_class">POS</div>
+            <div class="l_teacher">R. Kunčický</div>
+            <div class="l_room">POREB425</div><div class="l_index">C/08</div>
+        </div>
+        <div class="lesson prednaska"   data-p="3 10 12" >
+            <div class="l_class">VIS</div>
+            <div class="l_teacher">M. Kudělka</div>
+            <div class="l_room">POREC1</div><div class="l_index">P/01</div>
+        </div>
+        <div class="lesson prednaska"   data-p="3 12 14">
+            <div class="l_class">SWS</div>
+            <div class="l_teacher">L. Návrat</div>
+            <div class="l_room">POREC3</div><div class="l_index">P/01</div>
+        </div>
+        <div class="lesson prednaska"   data-p="4 10 13" >
+            <div class="l_class">POS</div>
+            <div class="l_teacher">P. Moravec</div>
+            <div class="l_room">POREC1</div><div class="l_index">P/01</div>
+        </div>
+        <div class="lesson cviko"       data-p="5 4 6"  >
+            <div class="l_class">VIS</div>
+            <div class="l_teacher">E. Kubanda</div>
+            <div class="l_room">POREB208</div><div class="l_index">C/08</div>
+        </div>
+        <div class="lesson cviko"       data-p="5 12 14" >
+            <div class="l_class">SWS</div>
+            <div class="l_teacher">L. Vojáček</div>
+            <div class="l_room">POREB406</div><div class="l_index">C/04</div>
+        </div>
+        <div class="lesson ind"         data-p="5 6 8"  >
+            <div class="l_class">FYZ II</div>
+            <div class="l_teacher">O. Zivotsky</div>
+            <div class="l_room">A930</div><div class="l_index">-/--</div>
+        </div>
+        <div class="lesson ind"         data-p="5 10 12"  >
+            <div class="l_class">BAK</div>
+            <div class="l_teacher">Z. Sawa</div>
+            <div class="l_room">EA413</div><div class="l_index">-/--</div>
+        </div>
+    </div>
+
+    <!--<div class="C">-->
+        <!--<span class="A"></span><span class="B"></span><span class="A"></span><span class="B"></span><span class="A"></span><span class="B"></span><span class="A"></span><span class="B"></span><span class="A"></span><span class="B"></span><span class="A"></span><span class="B"></span><span class="A"></span><span class="B"></span>-->
+    <!--</div>-->
+
+    <button onclick="klikatko()">klikatko</button>
+
+    <script>
+        function f(){
+            let times = document.getElementsByClassName("schedule_times")[0];
+            let days = document.getElementsByClassName("schedule_days")[0];
+            let schedule = document.getElementsByClassName("schedule")[0];
+            moment.locale("cs-CZ");
+
+            let start_time = moment("7:15", "HH:mm");
+
+            for (let i = 0; i < 14; i++){
+                let item = document.createElement("div");
+                item.className = "time_item";
+                // item.innerHTML = moment("7:15", "HH:mm").add(45, "m").add(45, "m").format("H:mm");
+
+
+                item.innerHTML = start_time.format("H:mm") + "<br>" + start_time.add(45, "m").format("H:mm");
+                item.style.gridArea = 1 + " / " + (i + 2);
+                if(i%2!==0)
+                start_time.add(15, "m");
+                schedule.appendChild(item);
+                // times[item].innerHTML = "a";
+            }
+
+            for (let i = 0; i < 5; i++){
+                let item = document.createElement("div");
+                item.className = "day_item";
+                item.innerHTML = "<div>" + moment().day(i + 1).format("dddd") + "</div>";
+                item.style.gridColumn = "1"; //----
+                item.style.gridRow = "" + (i + 2); //----
+                schedule.appendChild(item);
+            }
+
+            let val = 0;
+            let icon = document.createElement("i");
+            icon.className = "fas fa-search l_icon";
+            document.querySelectorAll(".lesson").forEach(function (element) {
+                let args = element.getAttribute("data-p").split(" ");
+                // console.log(args); //.map(x => parseInt(x))
+                element.style.gridRow = args[0];
+                element.style.gridColumnStart = args[1];
+                element.style.gridColumnEnd = args[2];
+                element.appendChild(icon.cloneNode());
+                val += args[2] - args[1];
+            });
+
+
+            for (let i = 0; i < (15 * 6) - (val + 14 + 6); i++){
+                let item = document.createElement("div");
+                item.className = "filler";
+                schedule.appendChild(item);
+            }
+
+
+
+
+
+
+        }
+
+        f();
+
+        function getDPI() {
+            var div = document.createElement( "div");
+            div.style.height = "1in";
+            div.style.width = "1in";
+            div.style.top = "-100%";
+            div.style.left = "-100%";
+            div.style.position = "absolute";
+
+            document.body.appendChild(div);
+
+            var result =  div.offsetHeight;
+
+            document.body.removeChild( div );
+
+            return result;
+
+        }
+
+        function klikatko() {
+            document.querySelectorAll(".prednaska,.prednaska2").forEach(function (element) {
+                element.classList.toggle("prednaska2");
+                element.classList.toggle("prednaska");
+            });
+        }
+
+    </script>
+</body>
+</html>
